@@ -1,0 +1,11 @@
+from rest_framework import viewsets
+from .models import Calender
+from .serializers import CalenderSerializer
+from rest_framework.permissions import IsAuthenticated
+
+
+class CalenderViewSet(viewsets.ModelViewSet):
+    queryset = Calender.objects.all()
+    serializer_class = CalenderSerializer
+    
+    # permission_classes = [IsAuthenticated]
