@@ -179,7 +179,9 @@ REST_FRAMEWORK = {
 }
 
 # csrf tokenについて
+"""
 CSRF_COOKIE_SAMESITE = 'None'  # クロスオリジンでのクッキー共有を許可
 CSRF_COOKIE_SECURE = True      # HTTPS通信が必須
 SESSION_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_SECURE = True
+"""
