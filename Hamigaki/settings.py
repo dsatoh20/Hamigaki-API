@@ -36,7 +36,7 @@ except FileNotFoundError:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-allowed_hosts = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1')
+allowed_hosts = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1,.herokuapp.com')
 ALLOWED_HOSTS = allowed_hosts.split(',')
 
 # Application definition
@@ -155,7 +155,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 CORS_ALLOW_ALL_ORIGINS = False
-cors_allowed_origins = os.getenv("CORS_ALLOWED_ORIGINS", "http://localhost:3000")
+cors_allowed_origins = os.getenv("CORS_ALLOWED_ORIGINS", "http://localhost:3000,.herokuapp.com")
 CORS_ALLOWED_ORIGINS = cors_allowed_origins.split(',')
 
 
@@ -170,3 +170,10 @@ AUTHENTICATION_BACKENDS = [
 CORS_ALLOW_CREDENTIALS = True  # クッキーを含むリクエストを許可
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' # 静的ファイルを扱う
+
+# RESTのAPIデフォルトのパーミッションクラス
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+    ]
+}
