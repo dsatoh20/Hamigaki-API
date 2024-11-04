@@ -177,3 +177,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
     ]
 }
+
+# csrf tokenについて
+CSRF_COOKIE_SAMESITE = 'None'  # クロスオリジンでのクッキー共有を許可
+CSRF_COOKIE_SECURE = True      # HTTPS通信が必須
