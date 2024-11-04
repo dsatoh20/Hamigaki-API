@@ -157,8 +157,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 CORS_ALLOW_ALL_ORIGINS = False
 cors_allowed_origins = os.getenv("CORS_ALLOWED_ORIGINS", "http://localhost:3000,.herokuapp.com")
-CORS_ALLOWED_ORIGINS = cors_allowed_origins.split(',')
-
+# CORS_ALLOWED_ORIGINS = cors_allowed_origins.split(',')
+CORS_ALLOWED_ORIGINS = ['*']
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
