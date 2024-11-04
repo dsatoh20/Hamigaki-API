@@ -185,3 +185,4 @@ CSRF_COOKIE_SECURE = True      # HTTPS通信が必須
 SESSION_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_SECURE = True
 CSRF_USE_SESSIONS = True # cookieではなくsessionに保存
+CSRF_TRUSTED_ORIGINS = cors_allowed_origins.split(',')
