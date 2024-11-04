@@ -37,7 +37,8 @@ except FileNotFoundError:
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 allowed_hosts = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1,.herokuapp.com')
-ALLOWED_HOSTS = allowed_hosts.split(',')
+# ALLOWED_HOSTS = allowed_hosts.split(',')
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
