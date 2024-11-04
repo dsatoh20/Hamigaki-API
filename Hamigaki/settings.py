@@ -170,3 +170,5 @@ AUTHENTICATION_BACKENDS = [
 
 # CORS_ALLOW_ALL_ORIGINS = True  # すべてのオリジンを許可（本番環境では制限することが推奨）
 CORS_ALLOW_CREDENTIALS = True  # クッキーを含むリクエストを許可
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' # 静的ファイルを扱う
