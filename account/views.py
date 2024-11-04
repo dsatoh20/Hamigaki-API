@@ -9,6 +9,7 @@ from .models import User
 from .serializers import UserSerializer
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.http import JsonResponse
+from django.middleware.csrf import get_token
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -65,3 +66,9 @@ def current_user(request):
     else:
         # 未ログインの場合はエラーレスポンスを返す
         return Response({"error": "User is not authenticated"}, status=status.HTTP_401_UNAUTHORIZED)
+
+# csrftokenのエンドポイント
+@ensure_csrf_cookie
+def get_csrf_token(request):
+    csrf_token = get_token(request)
+    return JsonResponse({'csrftoken': csrf_token})
