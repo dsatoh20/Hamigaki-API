@@ -156,7 +156,7 @@ STATIC_URL = '/static/'
 CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',  # ローカル開発用
-    'https://hamigaki-calender-d66c9cb2ddcf.herokuapp.com'  # 本番環境
+    'https://hamigaki-api-97a359fd8d71.herokuapp.com'  # 本番環境
 ]
 
 
