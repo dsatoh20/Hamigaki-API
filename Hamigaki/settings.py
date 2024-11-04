@@ -36,7 +36,7 @@ except FileNotFoundError:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['localhost','https://hamigaki-calender-d66c9cb2ddcf.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost','https://hamigaki-api-97a359fd8d71.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -56,6 +56,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
