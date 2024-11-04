@@ -36,8 +36,8 @@ except FileNotFoundError:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['localhost','https://hamigaki-api-97a359fd8d71.herokuapp.com', '127.0.0.1']
-
+allowed_hosts = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1')
+ALLOWED_HOSTS = allowed_hosts.split(',')
 
 # Application definition
 
@@ -155,10 +155,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 CORS_ALLOW_ALL_ORIGINS = False
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',  # ローカル開発用
-    'https://hamigaki-api-97a359fd8d71.herokuapp.com'  # 本番環境
-]
+cors_allowed_origins = os.getenv("CORS_ALLOWED_ORIGINS", "http://localhost:3000")
+CORS_ALLOWED_ORIGINS = cors_allowed_origins.split(',')
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
