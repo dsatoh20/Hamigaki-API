@@ -26,7 +26,6 @@ class UserViewSet(viewsets.ModelViewSet):
     
 # ログイン用の関数ベースビュー
 @api_view(['POST'])
-@ensure_csrf_cookie
 @permission_classes([AllowAny])
 def login_user(request):
     email = request.data.get('email')
@@ -66,7 +65,7 @@ def current_user(request):
         # 未ログインの場合はエラーレスポンスを返す
         return Response({"error": "User is not authenticated"}, status=status.HTTP_401_UNAUTHORIZED)
 
-# csrftokenのエンドポイント
+# csrftokenのエンドポイント アプリ起動時にアクセス
 @ensure_csrf_cookie
 def get_csrf_token(request):
     csrf_token = get_token(request)
