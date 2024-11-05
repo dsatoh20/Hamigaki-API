@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from .models import User
 from .serializers import UserSerializer
-from django.views.decorators.csrf import ensure_csrf_cookie
+from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt, csrf_protect
 from django.http import JsonResponse
 from django.middleware.csrf import get_token
 
@@ -26,6 +26,7 @@ class UserViewSet(viewsets.ModelViewSet):
     
 # ログイン用の関数ベースビュー
 @api_view(['POST'])
+@ensure_csrf_cookie
 @permission_classes([AllowAny])
 def login_user(request):
     email = request.data.get('email')
@@ -48,13 +49,14 @@ def login_user(request):
 
 # ログアウト
 @api_view(['POST'])
+@permission_classes([AllowAny])
 def logout_user(request):
     logout(request)  # ユーザーをログアウトさせる（セッションを削除）
     return JsonResponse({"message": "Logout successful"}, status=status.HTTP_200_OK)
 
 # login_userを返す
 @api_view(['GET'])
-@authentication_classes([SessionAuthentication, TokenAuthentication])
+@authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def current_user(request):
     if request.user.is_authenticated:
@@ -66,7 +68,7 @@ def current_user(request):
         return Response({"error": "User is not authenticated"}, status=status.HTTP_401_UNAUTHORIZED)
 
 # csrftokenのエンドポイント アプリ起動時にアクセス
-@ensure_csrf_cookie
 def get_csrf_token(request):
     csrf_token = get_token(request)
+    print("csrftoken: ", csrf_token)
     return JsonResponse({'csrftoken': csrf_token})
