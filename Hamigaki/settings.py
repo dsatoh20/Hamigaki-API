@@ -151,14 +151,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' # 静的ファイルを扱う
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
-
-CORS_ALLOW_ALL_ORIGINS = True
-cors_allowed_origins = os.getenv("CORS_ALLOWED_ORIGINS", "http://localhost:3000")
-# CORS_ALLOWED_ORIGINS = cors_allowed_origins.split(',')
-# CORS_ALLOWED_ORIGINS = ['*']
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -167,10 +163,11 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend'
 ]
 
-# CORS_ALLOW_ALL_ORIGINS = True  # すべてのオリジンを許可（本番環境では制限することが推奨）
+CORS_ALLOW_ALL_ORIGINS = False  # すべてのオリジンを許可（本番環境では制限することが推奨）
 CORS_ALLOW_CREDENTIALS = True  # クッキーを含むリクエストを許可
+cors_allowed_origins = os.getenv("CORS_ALLOWED_ORIGINS", "http://localhost:3000")
+CORS_ALLOWED_ORIGINS = cors_allowed_origins.split(',')
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' # 静的ファイルを扱う
 
 # RESTのAPIデフォルトのパーミッションクラス
 REST_FRAMEWORK = {
@@ -186,5 +183,4 @@ CSRF_COOKIE_SECURE = True      # HTTPS通信が必須
 SESSION_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_SECURE = True
 # CSRF_USE_SESSIONS = True # cookieではなくsessionに保存
-# CSRF_TRUSTED_ORIGINS = cors_allowed_origins.split(',')
-CSRF_TRUSTED_ORIGINS = ['*']
+CSRF_TRUSTED_ORIGINS = cors_allowed_origins.split(',')
