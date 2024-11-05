@@ -157,7 +157,8 @@ STATIC_URL = '/static/'
 
 CORS_ALLOW_ALL_ORIGINS = False
 cors_allowed_origins = os.getenv("CORS_ALLOWED_ORIGINS", "http://localhost:3000")
-CORS_ALLOWED_ORIGINS = cors_allowed_origins.split(',')
+# CORS_ALLOWED_ORIGINS = cors_allowed_origins.split(',')
+CORS_ALLOWED_ORIGINS = ['*']
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -185,4 +186,5 @@ CSRF_COOKIE_SECURE = True      # HTTPS通信が必須
 SESSION_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_SECURE = True
 # CSRF_USE_SESSIONS = True # cookieではなくsessionに保存
-CSRF_TRUSTED_ORIGINS = cors_allowed_origins.split(',')
+# CSRF_TRUSTED_ORIGINS = cors_allowed_origins.split(',')
+CSRF_TRUSTED_ORIGINS = ['*']
