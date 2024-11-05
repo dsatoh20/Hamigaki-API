@@ -49,7 +49,6 @@ def login_user(request):
 
 # ログアウト
 @api_view(['POST'])
-@ensure_csrf_cookie
 def logout_user(request):
     logout(request)  # ユーザーをログアウトさせる（セッションを削除）
     return JsonResponse({"message": "Logout successful"}, status=status.HTTP_200_OK)
