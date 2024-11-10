@@ -35,7 +35,7 @@ except FileNotFoundError:
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
-DEBUG = True
+# DEBUG = True
 
 allowed_hosts = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1')
 ALLOWED_HOSTS = allowed_hosts.split(',')
@@ -63,7 +63,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -172,15 +172,22 @@ CORS_ALLOWED_ORIGINS = cors_allowed_origins.split(',')
 
 # RESTのAPIデフォルトのパーミッションクラス
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
     ]
 }
 
 # csrf tokenについて
-CSRF_COOKIE_SAMESITE = 'None'  # クロスオリジンでのクッキー共有を許可
-CSRF_COOKIE_SECURE = False # HTTPS通信が必須
+# CSRF_COOKIE_DOMAIN = ["localhost:3000"]
+# CSRF_HTTP_ONLY = True
+# CSRF_COOKIE_NAME = "csrftoken"
+# CSRF_COOKIE_SAMESITE = 'None'  # クロスオリジンでのクッキー共有を許可
+# CSRF_COOKIE_SECURE = False # HTTPS通信が必須
 # SESSION_COOKIE_SAMESITE = 'None'
 # SESSION_COOKIE_SECURE = False
-# CSRF_USE_SESSIONS = True # cookieではなくsessionに保存
-CSRF_TRUSTED_ORIGINS = cors_allowed_origins.split(',')
+# CSRF_USE_SESSIONS = False # cookieではなくsessionに保存するか
+
+# CSRF_TRUSTED_ORIGINS = cors_allowed_origins.split(',')

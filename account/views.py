@@ -1,4 +1,5 @@
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.models import Group
 from rest_framework import viewsets, status
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -15,18 +16,25 @@ from django.middleware.csrf import get_token
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    authentication_classes = (TokenAuthentication,)
+    authentication_classes = (TokenAuthentication, )
     permission_classes = (IsAuthenticated, )
     
     def get_permissions(self):
         if self.action == 'create':
             return [AllowAny()]  # 新規登録は認証不要
         return [IsAuthenticated()]  # その他は認証必須
+    def perform_create(self, serializer):
+        # ユーザーを保存
+        user = serializer.save()
+        
+        # グループにユーザーを追加
+        default_group, created = Group.objects.get_or_create(name='general-users')
+        user.groups.add(default_group)
     
     
 # ログイン用の関数ベースビュー
 @api_view(['POST'])
-@ensure_csrf_cookie
+# @ensure_csrf_cookie
 @permission_classes([AllowAny])
 def login_user(request):
     email = request.data.get('email')

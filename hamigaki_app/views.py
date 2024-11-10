@@ -9,5 +9,5 @@ class CalenderViewSet(viewsets.ModelViewSet):
     queryset = Calender.objects.all()
     serializer_class = CalenderSerializer
     
-    # permission_classes = [AllowAny]
+    # permission_classes = [IsAuthenticated]
     authentication_classes = [TokenAuthentication]
