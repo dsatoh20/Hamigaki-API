@@ -12,6 +12,7 @@ class Calender(models.Model):
     duration = models.IntegerField(default=31, validators=[MinValueValidator(7), MaxValueValidator(365)]) # 1週間~1年
     status = models.JSONField(default=[0]) # 進捗状況
     completed = models.BooleanField(default=False) # Completed?
+    public = models.BooleanField(default=False) # Groupに公開するかどうか
     
     def save(self, *args, **kwargs):
         if self.status == [0]:
@@ -21,3 +22,11 @@ class Calender(models.Model):
     
     def __str__(self):
         return f'Calender:id={self.id}, {self.title}({self.owner})'
+
+class Notification(models.Model):
+    title = models.CharField(max_length=16)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notification_owner')
+    reciever = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notification_reciever')
+    
+    def __str__(self):
+        return f'Notification:id={self.id}, {self.title} from {self.owner} to {self.reciever}'
