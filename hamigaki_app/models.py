@@ -27,6 +27,8 @@ class Notification(models.Model):
     title = models.CharField(max_length=16)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notification_owner')
     reciever = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notification_reciever')
+    read = models.BooleanField(default=False) # 既読チェック
+    created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
         return f'Notification:id={self.id}, {self.title} from {self.owner} to {self.reciever}'
